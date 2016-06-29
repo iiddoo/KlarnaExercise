@@ -9,8 +9,9 @@ Create a Web Application to search for people by **name**, **phone**, **age**, o
   - **Return and view result to user**
 
 ##### Query validation
+
 > Performed on client-side, to avoid fault requests to the server, 
-> but should apply on server to for double check and security.
+  but should apply on server to for double check and security.
 
 * Maximum 3 query fields.
 * Age field is any number > 0 && < 120.
@@ -22,41 +23,40 @@ Create a Web Application to search for people by **name**, **phone**, **age**, o
 ##### Search for match
 
 * Valid match only if all query fields found match in person properties.
-* Person object expanded with additional fields for efficiant compare.
-* Phone field is any number >120.
-* Name field is NaN and includes letters only.
-* Query field can appear only once.
-* Support case insensitive for *name* search.
+* Person object expanded with additional fields for efficient compare.
 
 
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
+##### Return and view result to user
 
-### Installation
+* Valid match only if all query fields found match in person properties.
+* Person object expanded with additional fields for efficient compare.
 
-Dillinger requires [Node.js](https://nodejs.org/) v4+ to run.
 
-You need Gulp installed globally:
+### Technologies
 
+Back-end written in [Node.js](https://nodejs.org/) and requires v4+ to run.
+
+Front-end uses [AngularJS](https://angularjs.org/) framework v1.4.7.
+
+### plugins
 ```sh
-$ npm i -g gulp
+body-parser
+```
+```sh
+express
 ```
 
 ```sh
-$ git clone [git-repo-url] dillinger
-$ cd dillinger
-$ npm i -d
-$ NODE_ENV=production node app
+angular-resource
 ```
 
-### Plugins
+```sh
+angular-ui-router
+```
 
-Dillinger is currently extended with the following plugins
-
-* Dropbox
-* Github
-* Google Drive
-* OneDrive
+```sh
+oclazyload
+```
 
 Readmes, how to use them in your own application can be found here:
 
