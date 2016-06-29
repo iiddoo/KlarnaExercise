@@ -7,11 +7,9 @@ Create a Web Application to search for people by **name**, **phone**, **age**, o
   - **Query validation**
   - **Search for match**
   - **Return and view result to user**
-#
-#
+
 ##### Query validation
-#
-#
+
 > Performed on client-side, to avoid fault requests to the server, but should apply on server to for double check and security.
 * Maximum 3 query fields.
 * Age field is any number > 0 && < 120.
@@ -19,9 +17,9 @@ Create a Web Application to search for people by **name**, **phone**, **age**, o
 * Name field is NaN and includes letters only.
 * Query field can appear only once.
 * Support case insensitive for *name* search.
-#
+
 ##### Search for match
-#
+
 * Valid match only if all query fields found match in person properties.
 * Person object expanded with additional fields for efficiant compare.
 * Phone field is any number >120.
