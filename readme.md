@@ -10,7 +10,8 @@ Create a Web Application to search for people by **name**, **phone**, **age**, o
 
 ##### Query validation
 
-> Performed on client-side, to avoid fault requests to the server, but should apply on server to for double check and security.
+> Performed on client-side, to avoid fault requests to the server, 
+> but should apply on server to for double check and security.
 * Maximum 3 query fields.
 * Age field is any number > 0 && < 120.
 * Phone field is any number >120.
