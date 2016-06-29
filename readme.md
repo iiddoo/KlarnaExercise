@@ -62,25 +62,37 @@ App structure
 ----
 
 ```
-project
-│   README.md
-│   file001.txt    
+Exercise
+│   package.jason
+│   readme.md
+│   server.js
 │
-└───folder1
-    │   file011.txt
-    │   file012.txt
+└───data
+│    │   people.jason
+│
+└───node_modules
+│    │   body-parser
+│    │   express
+│
+└───public
+    └───app
+    │    └───exercise  
+    │    │      │   exercise.controller.js
+    │    │      │   exercise.view.html
+    │    │   app.js
+    └───components
+    │     │   angular.min.js  
+    │     │   angular-resource.min.js   
+    │     │   angular-ui-router.min.js  
+    │     │   ocLazyLoad.min.js
+    └───style
+    │     │   custom.css  
+    │     │   klarna-ui-css-components.css   
     │
-    ├───subfolder1
-    │   │   file111.txt
-    │   │   file112.txt
-    │   │   ...
-    │
-    └───folder2
-    │   file021.txt
-    │   file022.txt
+    │   index.html
+    │   old_index.html
+
+
 ```
-
-Thank you
 ----
-
-**Ido Lev**
+[Live preview](http://klarnaexercise.herokuapp.com/)
