@@ -11,7 +11,7 @@ function exerciseController($http) {
     vm.query='';
     vm.searchResult=[];
     vm.ageMax=120;
-    vm.queryUrl='http://localhost:3333/search/';
+    vm.queryUrl='http://klarnaexercise.herokuapp.com/:8080/search/';
     
     // parse query
     vm.parseQuery = function (query) {
