@@ -41,7 +41,7 @@ Back-end written in [Node.js](https://nodejs.org/) and requires v4+ to run.
 
 Front-end uses [AngularJS](https://angularjs.org/) framework v1.4.7.
 
-### plugins
+### Plugins
 ```sh
 body-parser
 ```
@@ -58,8 +58,7 @@ angular-ui-router
 oclazyload
 ```
 
-App structure
-----
+### App structure
 
 ```
 Exercise
