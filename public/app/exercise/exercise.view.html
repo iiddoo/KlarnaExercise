@@ -1,0 +1,56 @@
+<div class="search">
+
+    <!-- user input -->
+    <form ng-show="!vm.loading" ng-submit="vm.getResult()" class="cui__input giant">
+        <input class="cui__input__input" ng-model="vm.query" placeholder="Type your search query" />
+    </form>
+
+    <!-- loader -->
+    <div  ng-show="vm.loading" class="load_container">
+        <div class="loader"></div>
+    </div>
+
+    <!-- error message -->
+    <div  ng-show="vm.errorMessage" class="results">
+        <div class="cui__selector--direct title">
+            <h2 class="cui__selector--direct__title" ng-bind="vm.errorMessage"></h2>
+        </div>
+    </div>
+
+    <!-- search result -->
+    <div ng-show="vm.searchResult.length>0"  class="results">
+
+        <div class="cui__selector--direct title">
+
+            <!-- results title -->
+            <h2 class="cui__selector--direct__title">
+                Showing
+                <span class="results_number" ng-bind="vm.searchResult.length"></span>
+                results for
+                <span class="query_details">
+                    <span ng-show="vm.queryObject.name" ng-bind="'Name: '+ vm.queryObject.name"></span>
+                    <span ng-show="vm.queryObject.age" ng-bind="'Age: '+ vm.queryObject.age"></span>
+                    <span ng-show="vm.queryObject.phone" ng-bind="'Phone: '+ vm.queryObject.phone"></span>
+                </span>
+            </h2>
+
+
+            <!-- results list -->
+            <div ng-repeat="person in vm.searchResult track by person.id" class="cui__selector--direct__item">
+                <img class="user-avatar" ng-src="{{person.avatar_origin}}" />
+                <p class="cui__selector--direct__label" ng-bind="person.name"></p>
+                <p class="cui__selector--direct__description">
+                    Age: <span ng-bind="person.age"></span>
+                </p>
+                <p class="cui__selector--direct__description">
+                    Phone: <span ng-bind="person.phone"></span>
+                </p>
+                <p class="cui__selector--direct__description">
+                    Address: <span ng-bind="person.addressString"></span>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</div>
