@@ -43,7 +43,7 @@ function exerciseController($http) {
                     vm.queryObject.name = query[i].toLowerCase();
                     break;
                 // age validate
-                case (!isNaN(query[i]) && query[i] <= vm.ageMax && !vm.queryObject.age):
+                case (!isNaN(query[i]) && query[i] <= vm.ageMax && query[i] > 0 && !vm.queryObject.age):
                     vm.queryObject.age = parseInt(query[i]);
                     break;
                 // phone validate
