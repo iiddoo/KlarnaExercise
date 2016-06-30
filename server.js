@@ -42,8 +42,10 @@ app.post('/search', function(request, response){
     else response.status(400).send("Oh uh, bad request. We received: " + query);
 });
 
+// paging through search results
 app.get('/page/:page', function(request, response){
     var currentPage = request.params.page;
+    currentPage=currentPage*pageSize;
     var page=[];
     var end = currentPage + pageSize;
     if(currentPage){
