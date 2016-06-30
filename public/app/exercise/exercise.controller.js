@@ -12,6 +12,9 @@ function exerciseController($http) {
     vm.searchResult=[];
     vm.ageMax=120;
     vm.queryUrl='http://klarnaexercise.herokuapp.com/search/';
+    vm.pagingUrl='http://klarnaexercise.herokuapp.com/page/';
+    vm.page = 0;
+    vm.fetching = false;
     
     // parse query
     vm.parseQuery = function (query) {
@@ -57,9 +60,11 @@ function exerciseController($http) {
         return vm.queryObject;
     };
 
+    // get results for query
     vm.getResult = function() {
         vm.searchResult=[];
         vm.errorMessage='';
+        vm.total=false;
         var parsed = vm.parseQuery(vm.query);
         var valid = vm.validateQuery(parsed);
 
@@ -72,12 +77,27 @@ function exerciseController($http) {
                 url:url,
                 data: valid
             }).then(function(data){
-                vm.searchResult =data.data;
+                vm.searchResult =data.data.searchResult;
+                vm.total=data.data.total;
                 // no results
                 if(vm.searchResult.length===0){
                     vm.errorMessage='No results, please review your search or try a different one';
                 }
                 vm.loading=false;
+            });
+        }
+    };
+
+    // fetch more items
+    vm.getMore = function() {
+        if(vm.searchResult.length>0) {
+            vm.page++;
+            vm.fetching = true;
+            $http.get(vm.pagingUrl + vm.page).then(function (data) {
+                var items = data.data;
+                vm.fetching = false;
+                // append the items to the list
+                vm.searchResult = vm.searchResult.concat(items);
             });
         }
     };
