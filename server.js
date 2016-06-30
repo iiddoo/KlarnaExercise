@@ -9,6 +9,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 var people =[];
+var searchResult=[];
+var currentPage=0;
+var pageSize=20;
 
 // server exception handle
 process.on('uncaughtException', function (err) {
@@ -23,7 +26,8 @@ app.get('/', function(req, res) {
 // get query object from client and return result
 app.post('/search', function(request, response){
     var query = request.body;
-    var searchResult=[];
+    searchResult=[];
+    currentPage=0;
     if(query){
         for (var i = 0, len = people.length; i < len; i++) {
             var match = isMatch(query, people[i]);
@@ -31,9 +35,22 @@ app.post('/search', function(request, response){
                 searchResult.push(people[i]);
             }
         }
-        response.send(searchResult);
+        var total=searchResult.length;
+        var page =searchResult.splice(currentPage,pageSize);
+        response.send({searchResult:page,total:total});
     }
     else response.status(400).send("Oh uh, bad request. We received: " + query);
+});
+
+app.get('/page/:page', function(request, response){
+    var currentPage = request.params.page;
+    var page=[];
+    var end = currentPage + pageSize;
+    if(currentPage){
+        page=searchResult.splice(currentPage,end);
+        response.send(page);
+    }
+    else response.status(400).send("Oh uh, bad request. We received: " + currentPage);
 });
 
 // check person match for query
