@@ -20,12 +20,12 @@
     <!-- search result -->
     <div ng-show="vm.searchResult.length>0"  class="results">
 
-        <div class="cui__selector--direct title">
+        <div tagged-infinite-scroll="vm.getMore()" class="cui__selector--direct title">
 
             <!-- results title -->
             <h2 class="cui__selector--direct__title">
                 Showing
-                <span class="results_number" ng-bind="vm.searchResult.length"></span>
+                <span class="results_number" ng-bind="vm.total"></span>
                 results for
                 <span class="query_details">
                     <span ng-show="vm.queryObject.name" ng-bind="'Name: '+ vm.queryObject.name"></span>
@@ -36,7 +36,7 @@
 
 
             <!-- results list -->
-            <div ng-repeat="person in vm.searchResult track by person.id" class="cui__selector--direct__item">
+            <div ng-repeat="person in vm.searchResult" class="cui__selector--direct__item">
                 <img class="user-avatar" ng-src="{{person.avatar_origin}}" />
                 <p class="cui__selector--direct__label" ng-bind="person.name"></p>
                 <p class="cui__selector--direct__description">
