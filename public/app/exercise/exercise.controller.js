@@ -64,6 +64,7 @@ function exerciseController($http) {
     vm.getResult = function() {
         vm.searchResult=[];
         vm.errorMessage='';
+        vm.page = 0;
         vm.total=false;
         var parsed = vm.parseQuery(vm.query);
         var valid = vm.validateQuery(parsed);
