@@ -2,7 +2,8 @@
 // define main module
 var exercise = angular.module("exercise", [
     "ui.router",
-    "oc.lazyLoad"
+    "oc.lazyLoad",
+    'tagged.directives.infiniteScroll'
 ]);
 
 /* Routing Pages */
