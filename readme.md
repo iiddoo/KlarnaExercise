@@ -33,6 +33,7 @@ The app
 * Showing error message in case of long query or invalid characters.
 * View results with detailed user query parsed to fields.
 * Show the number of matching results.
+* Use infinite scroll to display large amounts of data.
 
 
 ### Technologies
@@ -41,7 +42,7 @@ Back-end written in [Node.js](https://nodejs.org/) and requires v4+ to run.
 
 Front-end uses [AngularJS](https://angularjs.org/) framework v1.4.7.
 
-### Plugins
+### plugins
 ```sh
 body-parser
 ```
@@ -57,8 +58,12 @@ angular-ui-router
 ```sh
 oclazyload
 ```
+```sh
+taggedInfiniteScroll
+```
 
-### App structure
+App structure
+----
 
 ```
 Exercise
@@ -84,6 +89,7 @@ Exercise
     │     │   angular-resource.min.js   
     │     │   angular-ui-router.min.js  
     │     │   ocLazyLoad.min.js
+    │     │   taggedInfiniteScroll.min.js
     └───style
     │     │   custom.css  
     │     │   klarna-ui-css-components.css   
@@ -94,4 +100,4 @@ Exercise
 
 ```
 ----
-[Live preview](http://klarnaexercise.herokuapp.com/)
+Live preview [http://klarnaexercise.herokuapp.com](http://klarnaexercise.herokuapp.com/)
