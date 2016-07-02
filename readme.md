@@ -96,7 +96,6 @@ Exercise
     │     │   klarna-ui-css-components.css   
     │
     │   index.html
-    │   old_index.html
 
 
 ```
