@@ -34,7 +34,6 @@
                 </span>
             </h2>
 
-
             <!-- results list -->
             <div ng-repeat="person in vm.searchResult" class="cui__selector--direct__item">
                 <img class="user-avatar" ng-src="{{person.avatar_origin}}" />
@@ -48,6 +47,11 @@
                 <p class="cui__selector--direct__description">
                     Address: <span ng-bind="person.addressString"></span>
                 </p>
+            </div>
+
+            <!-- loader -->
+            <div  ng-show="vm.fetching" class="load_container">
+                <div class="loader"></div>
             </div>
 
         </div>
