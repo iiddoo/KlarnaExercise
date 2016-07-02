@@ -11,8 +11,8 @@ The app
 
 ##### Query validation
 
-> Performed on client-side to avoid fault requests, 
-  but should apply on server too for double check and security.
+> Server side validation checks valid query object and it's fields, 
+details below regarding to client side validation.
 
 * Maximum 3 query fields.
 * Age field is any number > 0 && < 120 (120 defined as maximum age).
@@ -23,6 +23,7 @@ The app
 
 ##### Search for match
 
+* Confirm query validation before starting search.
 * Valid match only if all query fields found match in person properties.
 * Person object expanded with additional fields for efficient compare.
 
@@ -100,4 +101,4 @@ Exercise
 
 ```
 ----
-Live preview [http://klarnaexercise.herokuapp.com](http://klarnaexercise.herokuapp.com/)
+[Live preview](http://klarnaexercise.herokuapp.com/)
