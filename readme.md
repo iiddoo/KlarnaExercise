@@ -34,7 +34,8 @@ details below regarding to client side validation.
 * Showing error message in case of long query or invalid characters.
 * View results with detailed user query parsed to fields.
 * Show the number of matching results.
-* Use infinite scroll to display large amounts of data.
+* Server side pagination for big data results (default page size 20 records).
+* Use client side infinite scroll to display large amounts of data.
 
 
 ### Technologies
@@ -100,4 +101,4 @@ Exercise
 
 ```
 ----
-[Live preview](http://klarnaexercise.herokuapp.com/)
+Live preview: [http://klarnaexercise.herokuapp.com](http://klarnaexercise.herokuapp.com/)
