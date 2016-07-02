@@ -11,9 +11,9 @@ function exerciseController($http) {
     vm.query='';
     vm.searchResult=[];
     vm.ageMax=120;
-    vm.queryUrl='http://klarnaexercise.herokuapp.com/search/';
-    vm.pagingUrl='http://klarnaexercise.herokuapp.com/page/';
+    vm.url='http://klarnaexercise.herokuapp.com/search/';
     vm.page = 0;
+    vm.queryObject={};
     vm.fetching = false;
     
     // parse query
@@ -67,39 +67,54 @@ function exerciseController($http) {
         vm.page = 0;
         vm.total=false;
         var parsed = vm.parseQuery(vm.query);
-        var valid = vm.validateQuery(parsed);
-
+        var request = {query:vm.validateQuery(parsed),currentPage:vm.page};
         // post query to server
-        if(parsed && valid){
+        if(parsed && request.query){
             vm.loading=true;
-            var url = vm.queryUrl;
             $http({
                 method: 'POST',
-                url:url,
-                data: valid
-            }).then(function(data){
-                vm.searchResult =data.data.searchResult;
-                vm.total=data.data.total;
-                // no results
-                if(vm.searchResult.length===0){
-                    vm.errorMessage='No results, please review your search or try a different one';
-                }
+                url:vm.url,
+                data: request
+            }).success(function(response){
+                vm.searchResult = response.searchResult;
+                    vm.total = response.total;
+                    // no results
+                    if (vm.searchResult.length === 0) {
+                        vm.errorMessage = 'No results, please review your search or try a different one';
+                    }
                 vm.loading=false;
-            });
+            })
+            // handle error response
+                .error(function (response) {
+                    vm.loading=false;
+                    vm.errorMessage=response;
+                });
         }
     };
 
     // fetch more items
     vm.getMore = function() {
-        if(vm.searchResult.length>0) {
+        // check if paging is needed
+        if(vm.searchResult.length > 0 && vm.searchResult.length < vm.total) {
+            vm.errorMessage='';
             vm.page++;
+            var request = {query:vm.queryObject,currentPage:vm.page};
             vm.fetching = true;
-            $http.get(vm.pagingUrl + vm.page).then(function (data) {
-                var items = data.data;
+            $http({
+                method: 'POST',
+                url:vm.url,
+                data: request
+            }).success(function(response){
+                var items = response.searchResult;
                 vm.fetching = false;
                 // append the items to the list
                 vm.searchResult = vm.searchResult.concat(items);
-            });
+            })
+            // handle error response
+                .error(function (response) {
+                    vm.fetching = false;
+                    vm.errorMessage=response;
+                });
         }
     };
 
