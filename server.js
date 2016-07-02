@@ -9,9 +9,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 var people =[];
-var searchResult=[];
-var currentPage=0;
 var pageSize=20;
+var ageMax=120;
 
 // server exception handle
 process.on('uncaughtException', function (err) {
@@ -23,51 +22,69 @@ app.get('/', function(req, res) {
     res.sendfile('./public/index.html');
 });
 
-// get query object from client and return result
+// get query and paging from client and return page result
 app.post('/search', function(request, response){
-    var query = request.body;
-    searchResult=[];
-    currentPage=0;
-    if(query){
-        for (var i = 0, len = people.length; i < len; i++) {
-            var match = isMatch(query, people[i]);
-            if(match){
-                searchResult.push(people[i]);
-            }
+    var queryObject = request.body;
+    if(isValid(queryObject)) {
+        var start = queryObject.currentPage * pageSize;
+        var searchResult = getResults(queryObject.query);
+        var total = searchResult.length;
+        var page = searchResult.splice(start, pageSize);
+        response.send({searchResult: page, total: total});
+    }
+    // bad request handle
+    else response.status(400).send("Oh uh, bad request. We received: " + queryObject);
+});
+
+// search people for person
+var getResults = function (query) {
+    var result=[];
+    for (var i = 0, len = people.length; i < len; i++) {
+        if(isMatch(query, people[i])){
+            result.push(people[i]);
         }
-        var total=searchResult.length;
-        var page =searchResult.splice(currentPage,pageSize);
-        response.send({searchResult:page,total:total});
     }
-    else response.status(400).send("Oh uh, bad request. We received: " + query);
-});
+    return result;
+};
 
-// paging through search results
-app.get('/page/:page', function(request, response){
-    var currentPage = request.params.page;
-    currentPage=currentPage*pageSize;
-    var page=[];
-    var end = currentPage + pageSize;
-    if(currentPage){
-        page=searchResult.splice(currentPage,end);
-        response.send(page);
-    }
-    else response.status(400).send("Oh uh, bad request. We received: " + currentPage);
-});
-
-// check person match for query
+// check if person match for query
 var isMatch=function (query,person) {
     var match=true;
+    // name match
     if(query.name){
         match=(match && person.nameLower.includes(query.name));
     }
+    // phone match
     if(query.phone){
         match=(match && person.phoneNumber.includes(query.phone));
     }
+    // age match
     if(query.age){
         match=(match && query.age===person.age);
     }
     return match;
+};
+
+// validate query
+var isValid = function (queryObject) {
+    var valid = false;
+    if(queryObject.currentPage>=0 && queryObject.query){
+        valid = true;
+        var query = queryObject.query;
+        // name validate
+        if(query.name && isNaN(query.name) && new RegExp(/^[a-zA-Z\.]+$/).test(query.name)) {
+            valid=(valid && true);
+        }
+        // age validate
+        if(query.age && !isNaN(query.age) && query.age <= ageMax  && query.age > 0 ) {
+            valid=(valid && true);
+        }
+        // phone validate
+        if(query.phone && !isNaN(query.phone) && query.phone > ageMax) {
+            valid=(valid && true);
+        }
+    }
+    return valid;
 };
 
 // app initialization
